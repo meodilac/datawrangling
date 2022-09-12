@@ -1,0 +1,43 @@
+#quiztest
+
+Q1. Which of the following is easier to read?
+1.
+SELECT
+     column_1,
+     column_2,
+     count(*)
+ FROM
+     example_table
+ WHERE
+     column_3 is not null
+ GROUP BY
+     column_1,
+     column_2
+2. select column_1, column_2, count(*) from example_table where
+ column_3 is not null group by column_1, column_2
+ 
+Answer: 1
+
+Q2.Suppose in a table you find a column called username, which contains the value kat123. What is the correct data type category for this column?
+  1. Date
+  2. String
+  3. Number
+Answer: 2. String
+
+Q3. Suppose in a table you find a column called price, which contains the value $9.99. What is the best data type category for this column?
+  1. Number
+  2. Date
+  3. String
+Answer: 2. Date
+
+Q4. Suppose in a table you find a column called created_at, which contains the value 2019-01-01. What is the best data type category for this column?
+  1. Date
+  2. Number
+  3. String
+Answer: 1. Date
+
+Q4. Suppose in a table you find a column called price, which contains the value 9.99. Of the following options, which is the best data type for this column?
+  1. INT
+  2. BIGINT
+  3. FLOAT
+Answer: 3. FLOAT
