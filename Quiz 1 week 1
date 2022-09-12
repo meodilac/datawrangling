@@ -1,0 +1,125 @@
+Q1. Based on the dataset for this course, what does this query count?
+ SELECT
+     COUNT(*)
+ FROM
+     dsv1069.users
+ JOIN
+     dsv1069.orders
+ ON
+     users.id = orders.user_id
+     
+  1. Counts the number of users
+  2. Counts the number of invoices
+  3. Counts the number of rows in orders table
+  4. Counts the number of users who have ordered an item
+ Answer:  3. Counts the number of rows in orders table
+ 
+Q2. Assume you have no information about the data in the example table.
+
+ SELECT *
+  FROM example_table
+  WHERE id IS NULL
+ 
+ When I run the query below, no rows are returned, but there are no error messages. What are possible reasons for this? (Select all that apply.)
+ 
+  1. There are no rows in the example_table - it’s empty
+  2. There is no column called id
+  3. There are no rows with a null id
+ Answer:  1. There are no rows in the example_table - it’s empty
+          3. There are no rows with a null id
+
+Q3. In the events table, (dsv1069.events) for this class, how many rows exist per event_id?
+  1. One per parameter_name
+  2. Always more than one 
+  3. Exactly one
+ Answer:  1. One per parameter_name
+  
+Q4. When you encounter a new dataset, which of the following can you assume? (Select all that apply.)
+  1. The data is out-of-date
+  2. The table has a primary key
+  3. Test usage is unfiltered
+  4. The table is empty
+  5. There are duplicate rows
+ Answer:  1; 3; 4; 5.
+ 
+Q5. TROUBLESHOOT THIS ERROR: Based on your exploration of the tables in the course dataset. Why are the results to this specific query empty?
+ SELECT *
+ FROM
+     dsv1069.users
+ JOIN
+     dsv1069.events
+ ON
+     users.parent_user_id = events.user_id
+ WHERE
+     event_name = 'view_item'
+ AND
+     merged_at is NULL
+     
+  1. The users table is empty
+  2. There are no events with this event_name
+  3. There are no parent_user_ids that satisfy the WHERE clause
+ Answer:  3. There are no parent_user_ids that satisfy the WHERE clause.
+ 
+Q6. TROUBLESHOOT THIS ERROR: Why are the results for this specific query empty?
+ SELECT *
+ FROM
+     dsv1069.events
+ WHERE
+     event_name = 'item_view'
+     
+  1. There are no events with this event_name
+  2. The table is empty
+  3. No items have ever been viewed
+ Answer:  1. There are no events with this event_name
+ 
+Q7. What does this query do? Select all true statements.
+ SELECT
+     COUNT(*)
+ FROM
+     dsv1069.events
+ WHERE
+     event_name = 'view_item'
+     
+  1. The query counts the number of rows in the events table.
+  2. The query counts the number of events. 
+  3. The query returns all of the rows in the events table.
+  4. The query counts the number of view_item events.
+  5. The query counts the number of rows corresponding to view_item events.
+ Answer:  5. The query counts the number of rows corresponding to view_item events.
+ 
+Q8. Consider the following query: What happens when some rows have a NULL value in the column table_alpha.key?
+ SELECT *
+ FROM table_alpha
+ JOIN table_beta
+ ON table_alpha.key = table_beta.column
+ 
+  1. Each row with a null value is joined to every row in table_beta where table_beta.column is null.
+  2. Those values aren’t included in the result.
+  3. Each row with a null value will be joined to every row in table_beta.
+  4. It is not possible for a join key to be null, the query will return an error.
+ Answer:  1. Each row with a null value is joined to every row in table_beta where table_beta.column is null.
+ 
+Q9. Which of the following are problems with the query below?
+ SELECT
+     COUNT(*)
+ FROM
+     dsv1069.users
+ JOIN
+     dsv1069.orders
+ ON
+     users.parent_user_id = orders.user_id
+
+  1. Count(*) counts rows not unique users
+  2. We need a GROUP BY clause
+  3. We are missing a comma
+  4. The join should be on users.parent_user_id
+  5. There are no error messages, so it must be right
+  6. The join should be on users.user_id
+ Answer:  1. Count(*) counts rows not unique users
+ 
+Q10. In the users table, the column parent_user_id is?
+  1. Always NULL
+  2. Never NULL
+  3. Sometimes NULL
+ Answer:  3. Sometimes NULL
+ 
