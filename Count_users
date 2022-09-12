@@ -1,0 +1,89 @@
+​ When querying a table, remember to prepend dsv1069, which is the schema, or folder
+that contains the course data.
+--- Exercise 1:  We’ll be using the users table to answer the question “How many new users are
+added each day?“. Start by making sure you understand the columns in the table.
+--- Starter Code:
+-- SELECT * FROM dsv1069.users
+SELECT
+  COUNT (*) AS users,
+  date(created_at) AS DAY
+FROM
+  dsv1069.users
+GROUP BY
+  DAY 
+
+--- Exercise 2: WIthout worrying about deleted user or merged users, count the number of users
+added each day.
+
+SELECT
+  COUNT (*) AS users,
+  date(created_at) AS DAY
+FROM
+  dsv1069.users
+WHERE
+  deleted_at IS NULL
+  AND (
+    id <> parent_user_id
+    OR parent_user_id IS NULL
+  )
+GROUP BY
+  DAY
+
+--- Exercise 3: Consider the following query. Is this the right way to count merged or deleted
+users? If all of our users were deleted tomorrow what would the result look like?
+--- Starter Code:
+-- SELECT
+-- date(created_at) AS day,
+-- COUNT(*) AS users
+-- FROM
+-- dsv1069.users
+-- WHERE
+-- deleted_at IS NULL
+-- AND
+-- (id <> parent_user_id OR parent_user_id IS NULL)
+-- GROUP BY
+-- date(created_at)
+
+## draw chart to compare it clearly.
+SELECT
+  new.day,
+  new.users,
+  COALESCE(deleted.deleted_user, 0) AS deleted_user,
+  COALESCE(merged.Merged_users, 0) AS merged_user,
+  (
+    new.users - COALESCE(deleted.deleted_user, 0) - COALESCE(merged.Merged_users, 0)
+  ) AS net_newaddeduser
+FROM
+  (
+    SELECT
+      COUNT (*) AS users,
+      date(created_at) AS DAY
+    FROM
+      dsv1069.users
+    GROUP BY
+      DAY
+  ) new
+  LEFT JOIN (
+    SELECT
+      date(created_at) AS DAY,
+      COUNT (*) AS deleted_user
+    FROM
+      dsv1069.users
+    WHERE
+      deleted_at IS NOT NULL
+    GROUP BY
+      DAY
+  ) deleted ON deleted.day = new.day
+  LEFT JOIN (
+    SELECT
+      COUNT (*) AS Merged_users,
+      date(created_at) AS DAY
+    FROM
+      dsv1069.users
+    WHERE
+      id <> parent_user_id
+      AND parent_user_id IS NOT NULL
+    GROUP BY
+      DAY
+  ) merged ON merged.day = new.day
+  
